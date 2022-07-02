@@ -1,25 +1,18 @@
-import { useEffect, useState } from "react";
-import logo from "./logo.svg";
-import "./App.css";
-import { connect } from 'react-redux'
+import { useState, useEffect } from 'react'
+import './App.css'
 import { Top, Tab, TabItem } from './style'
 import { useNavigate, NavLink } from 'react-router-dom'
-import RouterConfig from "./routes";
+import RouterConfig from './routes'
 
+// 子组件 
 function App(props) {
-  // console.log(props);
-  let { singers, user } = props;
+  console.log(props, '---------');
+  let { singers, users } = props
   const navigate = useNavigate()
-  const [count, setCount] = useState(0);
-  // 有了redux之后，页面组件不再做数据管理
-
+  // 有了redux 后， 页面组件不再做数据管理 
   return (
     <div className="App">
-      {/* {
-        user.map(users =>
-          (<div key={users.id}>{users.name}</div>)
-        )
-      } */}
+      {/* layout  */}
       <Top>
         <span
           className="iconfont menu"
@@ -54,23 +47,15 @@ function App(props) {
       </Tab>
       <RouterConfig />
     </div>
-  );
+  )
 }
-
-// state 是redux 负责的所有子仓数据
-// connect 是api
-// 组件数据管理功能被收回 不用fetch 等
-// 通过connect 连上store，store未来去管理数据
-// redux 让数据管理更科学 开发工艺提高了
-
-// 把store 中的状态以props 的形式引到组件中
-// state 由redux 给我们的，状态树
-// 以树要组织数据分仓，树根（state）
-const mapStateToProps = (state) => {
-  return {
-    singer: state.singer.singers,
-    user: state.user.users
-  }
-}
-
-export default connect(mapStateToProps)(App); // 高阶组件
+// state 是redux 负责的所有子仓数据\c\
+// connect 是api 
+// 组件数据管理功能被收回 
+// 组件， 通过connect 连上store store未来去管理数据
+// redux 让数据管理更科学 开发工艺 
+// redux 就是数据管理学
+// 把store中的状态以props的形式引到组件中
+// state 由redux 给我们的， 状态树
+// 以树来组织数据分仓 树根 
+export default App

@@ -1,6 +1,7 @@
-// styled - components
-// 样式组件，样式带来变量、嵌套等高级功能，以组件的形式返回，声明式的css组件
-import styled, { createGlobalStyle } from 'styled-components'
+// styled-components 
+// 样式组件？ 样式带来变量， 嵌套等高级功能， 
+// 以组件的形式返回， 声明式的css组件
+import styled, { createGlobalStyle }  from 'styled-components'
 import style from '@/assets/global-style'
 
 export const GlobalStyle = createGlobalStyle`
@@ -70,6 +71,7 @@ export const Top = styled.div`
         }
     }
 `
+
 export const Tab = styled.div`
   height: 2.2rem;
   display: flex;
@@ -90,7 +92,7 @@ export const Tab = styled.div`
       }
     }
   }
-`
+`;
 
 export const TabItem = styled.div`
   height: 100%;
@@ -98,4 +100,4 @@ export const TabItem = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-`
+`;
