@@ -57,5 +57,120 @@
     神三元 使用的 styled-components 提供的 createGlobalStyle 全局样式
 
 - adapter
+    自适应
 
 - 重定向状态码 302
+    redirect
+
+- axios 功能点
+    - 网络请求很多，api axios 单例模式
+    - 统一了 vue react native app三端的请求库
+    - 每个请求 域名 + 端口部分 没必要重复
+        可以配置到 baseURL 中
+    - 为了切换请求域名的需要
+        baseURL = http://localhost:3000
+        http://localhost:3000/banner => /banner
+    - 拦截器
+        1. 响应拦截器
+            interceptors.response.use()
+            对返回的数据进行处理，如过滤、处理错误等
+        2. 请求拦截器
+            interceptors.request.use()
+            - 登录时，服务器会给我们一个授权码 token
+            - 每次请求时，需要手工带上
+                req.headers  请求头
+                Authorization 授权信息
+
+- 组件数据管理功能被剥夺
+    1. redux 管理数据更专业
+        - store store/index.js
+        - reducer 集合 交给store
+        - combineReducers 提供reducer
+        - 各个模块 （文章、评论、用户）
+        - 每个模块都是一个 *reducer* 函数
+        - reducer 还可以多次运行
+        - dispatch 一个他想要的 action
+        - 页面会自动更新
+        - connect mapStateToProps 获取状态
+            mapDispatchToProps 触发状态改变
+
+    2. mapStateToprops      状态读操作
+    3. mapDispatchToprops   写操作
+        - 状态不可直接修改 redux 起因
+            - 有法可依
+        - dispatch  getRankList 异步action redux-thunk 支持 data dispatch(changeRankList) 同步action
+        - dispatch({type:'',data}) 在action
+        - reducer 根据 type 重新计算
+        - 状态发生改变，应用了状态的地方mvvm
+
+- 小型项目没必要用redux，如果足够复杂，模块化reducer迁移到pages相应模块下
+  - pages/store  新的目录结构
+  - store 中央  src/store + 模块化  @pages/store{n}
+
+- 修改状态有固定流程
+    - 属于actionCreators
+    - 一般标配两个action  一个同步的，一个异步的
+    - dispatch 才能触发
+    - action 对象固定格式 {type: }
+    - type 方便我们把action 为什么要改变记录下来
+    - 从 init --> 任何action状态，都是可被追溯的
+    - 管理数据的严谨性
+
+- styled-components
+    页面播放歌曲动态高度，采用props 传参
+        `bottom: ${props => props.play > 0 ? "60px" : 0};`
+    ${函数} 函数的返回值
+    页面的播放状态
+
+- 移动端一般必须 better-scroll 生成的scroll组件
+    1. 滚动体验更好
+    2. 下拉刷新，上拉加载更多
+    3. 使用了神三元封装的Scroll 组件
+        移动端 "加载更多" 的标配
+
+- 数据管理跨页面级别的组件
+    redux 可以共享数据（本质）
+    父子组件之间共享
+        父 --> 子 ：props
+        子 --> 父 ：调用父组件函数通知父组件数据改变
+    爷孙 周围的人共享 困难
+        redux connect 可以跨页面级别，跨层级
+        
+- redux架构思路
+    1.  数据管理和组件，在有了redux后，是平级关系
+    - /pages    /store
+    2. 模块化数据管理， 每个模块reducer + action 下放到页面路由模块中
+    3. 每个模块都提供index.js(灵魂)，所有的reducer，action，constants都一起export，清单文件
+
+- react 组件渲染原理
+    1. 挂载
+    2. 当状态更新时，就MVVM，jsx从头到尾重新编译
+    3. recommend中，多个重要子组件Slider等
+    4. 给相对独立，组件加memo，只要外界给他的props没有变，则不会重新编译
+    5. 热更新  页面局部
+
+- memo 组件性能优化
+    1. 子组件
+    2. 父组件数据复杂，多项改变状态的地方
+    3. 父组件的改变，没有影响到子组件（props未变，没有props）
+
+- styled-components 原则
+    1. 最外层容器使用styled-components 接管
+        Wrapper Container
+    2. List + ListItem 
+        方便样式复用
+
+- 图片延时加载
+    1. react-lazyload 
+        声明式组件lazyload + placeholder 包住原图
+    2. scroll onScroll  react-lazyload 去 forceCheck
+
+##  复杂组件业务分析
+1. 这个阶段我们要刻意练习复杂组件
+    - 搜索
+    - 登录
+2. redux 设计思路
+    但凡有api 请求的肯定用redux
+    跨模块共享状态
+3. 热词
+    建议
