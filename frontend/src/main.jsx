@@ -13,7 +13,7 @@ import 'swiper/dist/css/swiper.css'
 ReactDOM.createRoot(document.getElementById('root')).render(
   // 外面再包一层 数据管理功能   项目做大了， 企业里的财务
   // 路由， SPA BrowserRouter？ react-router-dom  组件
-  // react 声明式开发
+  // react 申明式开发]
   <Provider store={store}>
     <BrowserRouter>
       <GlobalStyle />
